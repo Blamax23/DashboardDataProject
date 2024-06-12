@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} - Add Sales{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-6 offset-md-3">
+
+            <h1>Add Sales</h1>
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="produit" class="form-label">Product</label>
+                    <select id="produit" name="produit" class="form-control">
+                        {% for product in products %}
+                            <option value="{{ product.id }}">{{ product.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="prix" class="form-label">Prix</label>
+                    <input type="text" class="form-control" id="prix" name="prix">
+                </div>
+                <div class="mb-3">
+                    <label for="quantite" class="form-label">Quantité</label>
+                    <input type="number" class="form-control" id="quantite" name="quantite">
+                </div>
+                <button type="submit" class="btn btn-primary">Add</button>
+            </form>
+        </div>
+    </div>
+</div>
+    
+    {% endblock %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} - Performances{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-6 offset-md-3">
+
+            <h1>Performances</h1>
+            <div id="graphique">
+                {% if donnees %}
+                    <p>{{ donnees }}</p>
+                {% endif %}
+
+                <img src="data:image/png;base64, {{ graph | safe}}">
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="format" class="form-label">Chart Type</label>
+                    <select id="format" name="format" class="form-control">
+                        {% for format in formats %}
+                            <option value="{{ format }}">{{ format }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="datefrom" class="form-label">Depuis :</label>
+                    <input type="date" class="form-control" id="datefrom" name="datefrom">
+                </div>
+                <div class="mb-3">
+                    <label for="dateto" class="form-label">Jusqu'à :</label>
+                    <input type="date" class="form-control" id="dateto" name="dateto">
+                </div>
+                <button type="submit" name="show_chart" class="btn btn-primary">Show chart</button>
+                <button type="submit" name="summary" class="btn btn-secondary">Summary</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+    
+    {% endblock %}
